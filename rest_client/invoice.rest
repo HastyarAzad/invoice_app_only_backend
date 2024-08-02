@@ -1,0 +1,56 @@
+
+###-------------------- GET ALL invoiceS ------------###
+GET {{host}}/invoices?page=1&perPage=20
+key: {{key}}
+Accept-Language: ar
+Content-Type: application/json 
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- GET invoice BY ID ------------###
+GET {{host}}/invoice/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+
+###-------------------- CREATE invoice ------------###
+POST {{host}}/invoice
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "customer_id": 1,
+  "invoice_line": [
+    {
+      "product_id": 1,
+      "quantity": 2
+    },
+    {
+      "product_id": 2,
+      "quantity": 1
+    }
+  ]
+}
+
+###-------------------- UPDATE invoice ------------###
+
+PUT {{host}}/invoice/23
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  // add the fields here
+}
+
+###-------------------- DELETE invoice ------------###
+DELETE {{host}}/invoice/24
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+

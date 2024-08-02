@@ -1,0 +1,107 @@
+
+###-------------------- GET ALL productS ------------###
+GET {{host}}/products?page=1&perPage=20
+key: {{key}}
+Accept-Language: ar
+Content-Type: application/json 
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- GET product BY ID ------------###
+GET {{host}}/product/3
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- CREATE product ------------###
+POST {{host}}/product
+Content-Type: multipart/form-data; boundary=yourBoundary
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+--yourBoundary
+Content-Disposition: form-data; name="image"; filename="question2.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\hasty\OneDrive\Desktop\codify_documents\codify black.jpg
+--yourBoundary
+Content-Disposition: form-data; name="supplier_id"
+Content-Type: text/plain;
+
+1
+--yourBoundary
+Content-Disposition: form-data; name="name"
+Content-Type: text/plain;
+
+product name
+--yourBoundary
+Content-Disposition: form-data; name="barcode"
+Content-Type: text/plain;
+
+12342df23
+--yourBoundary
+Content-Disposition: form-data; name="price"
+Content-Type: text/plain;
+
+14000
+--yourBoundary
+Content-Disposition: form-data; name="quantity"
+Content-Type: text/plain;
+
+10
+--yourBoundary--
+###-------------------- UPDATE product ------------###
+
+PUT {{host}}/product/3
+Content-Type: multipart/form-data; boundary=yourBoundary
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+--yourBoundary
+Content-Disposition: form-data; name="image"; filename="question2.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\hasty\OneDrive\Desktop\codify_documents\codify black.jpg
+--yourBoundary
+Content-Disposition: form-data; name="supplier_id"
+Content-Type: text/plain;
+
+1
+--yourBoundary
+Content-Disposition: form-data; name="name"
+Content-Type: text/plain;
+
+product name
+--yourBoundary
+Content-Disposition: form-data; name="barcode"
+Content-Type: text/plain;
+
+12342df23
+--yourBoundary
+Content-Disposition: form-data; name="price"
+Content-Type: text/plain;
+
+12000
+--yourBoundary--
+
+###-------------------- DELETE product ------------###
+DELETE {{host}}/product/2
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+
+###-------------------- PATCH product ------------###
+PATCH {{host}}/product/3
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "quantity": "10",
+  "transaction_type": "INPUT"
+}

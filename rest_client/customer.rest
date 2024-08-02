@@ -1,0 +1,77 @@
+
+###-------------------- GET ALL customerS ------------###
+GET {{host}}/customers?page=1&perPage=20
+key: {{key}}
+Accept-Language: ar
+Content-Type: application/json 
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- GET customer BY ID ------------###
+GET {{host}}/customer/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+
+###-------------------- CREATE customer ------------###
+POST {{host}}/customer
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "first_name": "customer",
+  "last_name": "good",
+  "address": "slemani street",
+  "phone": "9647501230000",
+  "balance": 500000
+}
+
+###-------------------- UPDATE customer ------------###
+
+PUT {{host}}/customer/23
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "first_name": "customer",
+  "last_name": "good",
+  "address": "slemani street",
+  "phone": "9647501230000"
+}
+
+###-------------------- DELETE customer ------------###
+DELETE {{host}}/customer/24
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+
+###-------------------- PATCH customer ------------###
+PATCH {{host}}/customer/add_balance/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "balance": 500000,
+  "transaction_type": "WITHDRAW"
+}
+
+###-------------------- PATCH customer ------------###
+PATCH {{host}}/customer/add_balance/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "balance": 500000,
+  "transaction_type": "DEPOSIT"
+}

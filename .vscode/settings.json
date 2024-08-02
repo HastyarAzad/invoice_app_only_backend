@@ -1,0 +1,13 @@
+
+{
+  "rest-client.environmentVariables": {
+
+    "$shared": {
+      "key": "e48ceba2f6a15f63bf70ad8b3082642f613598f027facaea3c6eeae7399fa9e005453fc1597c9901bcc2cc535bb5a9c90ed55049244b39d8fe1612536ad5be44",
+      "super_admin_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTY5NDQyMjIxMX0.TC5QLEn8zCacwcLvm3whCCkphKGZPXbIYhYxlNyEcF8"
+    },
+    "local":{
+      "host": "http://localhost:3000/api/v1"
+    }
+  }
+}

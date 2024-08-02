@@ -1,0 +1,18 @@
+
+###-------------------- GET tax BY ID ------------###
+GET {{host}}/tax/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- PATCH tax ------------###
+PATCH {{host}}/tax/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "rate": 5
+}

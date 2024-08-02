@@ -1,0 +1,48 @@
+
+###-------------------- GET ALL supplierS ------------###
+GET {{host}}/suppliers?page=1&perPage=20
+key: {{key}}
+Accept-Language: ar
+Content-Type: application/json 
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- GET supplier BY ID ------------###
+GET {{host}}/supplier/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+
+###-------------------- CREATE supplier ------------###
+POST {{host}}/supplier
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "name": "supplier name",
+  "phone": "9647501230022"
+}
+
+###-------------------- UPDATE supplier ------------###
+
+PUT {{host}}/supplier/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "name": "supplier name",
+  "phone": "9647501230022"
+}
+
+###-------------------- DELETE supplier ------------###
+DELETE {{host}}/supplier/24
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+\

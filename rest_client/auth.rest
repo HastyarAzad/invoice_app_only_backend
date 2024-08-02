@@ -1,0 +1,80 @@
+
+###-------------------- GET ALL userS ------------###
+GET {{host}}/users?page=1&perPage=20
+key: {{key}}
+Accept-Language: ar
+Content-Type: application/json
+Authorization: Bearer {{super_admin_token}}
+
+###-------------------- GET user BY ID ------------###
+GET {{host}}/user/2
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+
+###-------------------- CREATE user ------------###
+POST {{host}}/register
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "email": "Hastyar@gmail.com",
+  "password": "123456789"
+}
+
+###-------------------- login user ------------###
+POST {{host}}/login
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+
+{
+  "email": "test@gmail.com",
+  "password": "12345678"
+}
+
+###-------------------- refresh token ------------###
+POST {{host}}/refresh_token
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjQtMDctMzBUMDk6NDI6MjcuNTc5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDgtMDFUMDc6MDE6NDMuMDQzWiIsInBhc3N3b3JkIjoiJDJiJDEwJDF2U1FiaDgzNmxSeGJMRXdXeldUQ2U4TW1IZm56aUlnNTZtQjNZSEZSOGROUzVCbjRKcksuIn0sInJvbGUiOiJVU0VSIiwiaWF0IjoxNzIyNjIxNjMyfQ.0EajANoQO0v_xqISexiC_yK9y31S7MztMtPRL0ym9mM"
+}
+
+###-------------------- change user password ------------###
+
+PUT {{host}}/change_password/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "old_password": "12345678",
+  "new_password": "12345678"
+}
+
+###-------------------- UPDATE user ------------###
+
+PUT {{host}}/user/1
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
+
+{
+  "email": "test@gmail.com"
+}
+
+###-------------------- DELETE user ------------###
+DELETE {{host}}/user/24
+Content-Type: application/json
+key: {{key}}
+Accept-Language: ar
+Authorization: Bearer {{super_admin_token}}
