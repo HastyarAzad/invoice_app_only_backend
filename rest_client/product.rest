@@ -6,13 +6,122 @@ Accept-Language: ar
 Content-Type: application/json 
 Authorization: Bearer {{super_admin_token}}
 
+#success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 651
+# ETag: W/"28b-UvnsNWoUQlwossxOh0ToEwKNAeE"
+# Date: Sun, 04 Aug 2024 16:07:22 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع جميع القيم",
+#   "page_meta": {
+#     "total": 2,
+#     "deleted": 0,
+#     "page": 1,
+#     "perPage": 20,
+#     "totalPages": 1
+#   },
+#   "data": [
+#     {
+#       "id": 1,
+#       "supplier_id": 1,
+#       "name": "product name",
+#       "barcode": "12342df23",
+#       "quantity": 9,
+#       "price": 12000,
+#       "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#       "createdAt": "2024-08-01T09:48:14.868Z",
+#       "updatedAt": "2024-08-04T16:00:18.025Z"
+#     },
+#     {
+#       "id": 2,
+#       "supplier_id": 1,
+#       "name": "product name",
+#       "barcode": "12342df23",
+#       "quantity": 6,
+#       "price": 12000,
+#       "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#       "createdAt": "2024-08-01T09:52:10.947Z",
+#       "updatedAt": "2024-08-04T16:00:18.025Z"
+#     }
+#   ]
+# }
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 134
+# ETag: W/"86-4ufgd/167eyhg0Gxa6XpmvrVsP8"
+# Date: Sun, 04 Aug 2024 15:02:05 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل",
+#   "page_meta": {
+#     "total": 0,
+#     "deleted": 0,
+#     "page": 0,
+#     "perPage": 0,
+#     "totalPages": 0
+#   },
+#   "data": []
+# }
+
 ###-------------------- GET product BY ID ------------###
-GET {{host}}/product/3
+GET {{host}}/product/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:00:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 321
+# ETag: W/"141-UGJecs04lj77tS2Sh7pHCT3RU2s"
+# Date: Sun, 04 Aug 2024 16:08:06 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع قيمة واحدة",
+#   "data": {
+#     "id": 1,
+#     "supplier_id": 1,
+#     "name": "product name",
+#     "barcode": "12342df23",
+#     "quantity": 9,
+#     "price": 12000,
+#     "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#     "createdAt": "2024-08-01T09:48:14.868Z",
+#     "updatedAt": "2024-08-04T16:00:18.025Z"
+#   }
+# }
 ###-------------------- CREATE product ------------###
 POST {{host}}/product
 Content-Type: multipart/form-data; boundary=yourBoundary
@@ -51,9 +160,50 @@ Content-Type: text/plain;
 
 10
 --yourBoundary--
+
+# failed
+# HTTP/1.1 400 Bad Request
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 30
+# ETag: W/"1e-PUXX7zwGuDXrOSnkSvRGdlk3j3M"
+# Date: Sun, 04 Aug 2024 16:08:40 GMT
+# Connection: close
+
+# {
+#   "message": "imageUploadError"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 307
+# ETag: W/"133-4OD4Ld4Cnj+UtdVaGMMQBqDsxBc"
+# Date: Sun, 04 Aug 2024 16:08:17 GMT
+# Connection: close
+
+# {
+#   "message": "تم الإنشاء بنجاح",
+#   "data": {
+#     "id": 5,
+#     "supplier_id": 1,
+#     "name": "product name",
+#     "barcode": "12342df23",
+#     "quantity": 10,
+#     "price": 14000,
+#     "image": "\\assets\\products\\ba29e36a-949d-4dc1-96c2-c498234e5fd6-question2.jpg",
+#     "createdAt": "2024-08-04T16:08:17.892Z",
+#     "updatedAt": "2024-08-04T16:08:17.892Z"
+#   }
+# }
 ###-------------------- UPDATE product ------------###
 
-PUT {{host}}/product/3
+PUT {{host}}/product/1
 Content-Type: multipart/form-data; boundary=yourBoundary
 key: {{key}}
 Accept-Language: ar
@@ -86,6 +236,47 @@ Content-Type: text/plain;
 12000
 --yourBoundary--
 
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 306
+# ETag: W/"132-PtPqXs2BICnyyi2l6K03ApnUiSE"
+# Date: Sun, 04 Aug 2024 16:10:25 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "supplier_id": 1,
+#     "name": "product name",
+#     "barcode": "12342df23",
+#     "quantity": 9,
+#     "price": 12000,
+#     "image": "\\assets\\products\\eaf7d36f-9153-4dca-8035-dc28832df77f-question2.jpg",
+#     "createdAt": "2024-08-01T09:48:14.868Z",
+#     "updatedAt": "2024-08-04T16:10:25.335Z"
+#   }
+# }
+
+#  failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 16:09:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
+
 ###-------------------- DELETE product ------------###
 DELETE {{host}}/product/2
 Content-Type: application/json
@@ -93,9 +284,50 @@ key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
+#  failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:43 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 302
+# ETag: W/"12e-UWuCuRDqTsOovKdpHwNLFiofN6k"
+# Date: Sun, 04 Aug 2024 16:10:57 GMT
+# Connection: close
+
+# {
+#   "message": "تم الحذف بنجاح",
+#   "data": {
+#     "id": 2,
+#     "supplier_id": 1,
+#     "name": "product name",
+#     "barcode": "12342df23",
+#     "quantity": 6,
+#     "price": 12000,
+#     "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#     "createdAt": "2024-08-01T09:52:10.947Z",
+#     "updatedAt": "2024-08-04T16:10:57.949Z"
+#   }
+# }
 
 ###-------------------- PATCH product ------------###
-PATCH {{host}}/product/3
+PATCH {{host}}/product/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
@@ -105,3 +337,44 @@ Authorization: Bearer {{super_admin_token}}
   "quantity": "10",
   "transaction_type": "INPUT"
 }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 307
+# ETag: W/"133-lmKC9N4HH4GZtTZc1KF/F+lMW/o"
+# Date: Sun, 04 Aug 2024 16:11:28 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "supplier_id": 1,
+#     "name": "product name",
+#     "barcode": "12342df23",
+#     "quantity": 19,
+#     "price": 12000,
+#     "image": "\\assets\\products\\eaf7d36f-9153-4dca-8035-dc28832df77f-question2.jpg",
+#     "createdAt": "2024-08-01T09:48:14.868Z",
+#     "updatedAt": "2024-08-04T16:11:28.315Z"
+#   }
+# }
+
+# failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 16:11:07 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }

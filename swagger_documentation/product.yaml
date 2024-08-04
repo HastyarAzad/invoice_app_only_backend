@@ -1,0 +1,403 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  description: API for managing products
+  version: 1.0.0
+servers:
+  - url: {{host}}
+paths:
+  /products:
+    get:
+      summary: Get all products
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 20
+      responses:
+        '200':
+          description: Successfully retrieved all products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  page_meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      deleted:
+                        type: integer
+                      page:
+                        type: integer
+                      perPage:
+                        type: integer
+                      totalPages:
+                        type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        supplier_id:
+                          type: integer
+                        name:
+                          type: string
+                        barcode:
+                          type: string
+                        quantity:
+                          type: integer
+                        price:
+                          type: integer
+                        image:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+        '404':
+          description: No records found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  page_meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      deleted:
+                        type: integer
+                      page:
+                        type: integer
+                      perPage:
+                        type: integer
+                      totalPages:
+                        type: integer
+                  data:
+                    type: array
+                    items: {}
+
+  /product/{id}:
+    get:
+      summary: Get product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successfully retrieved product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      supplier_id:
+                        type: integer
+                      name:
+                        type: string
+                      barcode:
+                        type: string
+                      quantity:
+                        type: integer
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                supplier_id:
+                  type: integer
+                name:
+                  type: string
+                barcode:
+                  type: string
+                price:
+                  type: integer
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: Successfully created product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      supplier_id:
+                        type: integer
+                      name:
+                        type: string
+                      barcode:
+                        type: string
+                      quantity:
+                        type: integer
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '400':
+          description: Bad request, image upload error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    put:
+      summary: Update a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                supplier_id:
+                  type: integer
+                name:
+                  type: string
+                barcode:
+                  type: string
+                price:
+                  type: integer
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: Successfully updated product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      supplier_id:
+                        type: integer
+                      name:
+                        type: string
+                      barcode:
+                        type: string
+                      quantity:
+                        type: integer
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      summary: Delete a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2
+      responses:
+        '200':
+          description: Successfully deleted product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      supplier_id:
+                        type: integer
+                      name:
+                        type: string
+                      barcode:
+                        type: string
+                      quantity:
+                        type: integer
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /product/{id}/quantity:
+    patch:
+      summary: Update product quantity
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                transaction_type:
+                  type: string
+      responses:
+        '200':
+          description: Successfully updated product quantity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      supplier_id:
+                        type: integer
+                      name:
+                        type: string
+                      barcode:
+                        type: string
+                      quantity:
+                        type: integer
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string

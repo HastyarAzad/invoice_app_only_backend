@@ -55,7 +55,7 @@ exports.getAll = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   // if result is empty return 404 error no record found, else return the
@@ -64,7 +64,7 @@ exports.getAll = async (req, res) => {
     page_meta.totalPages = 0;
     page_meta.page = 0;
     page_meta.perPage = 0;
-    res.send(createResponse(req.t("noRecordFound"), [], page_meta));
+    res.status(404).send(createResponse(req.t("noRecordFound"), [], page_meta));
     return;
   }
 
@@ -89,7 +89,7 @@ exports.getById = async (req, res) => {
 
   if (error) {
     logger.info({ message: error.details[0].message });
-    res.status(404).send({ message: error.details[0].message });
+    res.status(400).send({ message: error.details[0].message });
     return;
   }
 
@@ -98,13 +98,13 @@ exports.getById = async (req, res) => {
   // logger.info("result of getById: ", result);
   // if result is empty return 404 error no product found, else return the product
   if (!result) {
-    res.send(createResponse(req.t("noRecordFound")));
+    res.status(404).send(createResponse(req.t("noRecordFound")));
     return;
   }
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`returned product with id ${value.id}`);
@@ -118,7 +118,7 @@ exports.createOne = async (req, res) => {
       if (err) {
         // console.log("hit error");
         logger.info(err);
-        res.status(404).send(createResponse(req.t("imageUploadError")));
+        res.status(400).send(createResponse(req.t("imageUploadError")));
         return;
       }
 
@@ -146,14 +146,14 @@ exports.createOne = async (req, res) => {
       if (error) {
         await deleteproductImage(req.file.path);
         logger.info({ message: error.details[0].message });
-        res.status(404).send({ message: error.details[0].message });
+        res.status(400).send({ message: error.details[0].message });
         return;
       }
 
       // check if result is an empty object
       if (Object.keys(value).length === 0) {
         await deleteproductImage(req.file.path);
-        res.status(404).send(createResponse(req.t("noDataProvided")));
+        res.status(400).send(createResponse(req.t("noDataProvided")));
         return;
       }
 
@@ -184,7 +184,7 @@ exports.createOne = async (req, res) => {
     });
   } catch (error) {
     logger.info(error);
-    res.status(404).send(createResponse(req.t("imageUploadError")));
+    res.status(400).send(createResponse(req.t("imageUploadError")));
     return;
   }
 };
@@ -234,7 +234,7 @@ exports.updateByID = async (req, res) => {
     upload.single("image")(req, res, async (err) => {
       if (err) {
         logger.info(err);
-        res.status(404).send(createResponse(req.t("imageUploadError")));
+        res.status(400).send(createResponse(req.t("imageUploadError")));
         return;
       }
 
@@ -272,17 +272,14 @@ exports.updateByID = async (req, res) => {
 
       // check if result is an empty object
       if (Object.keys(result1.value).length === 0) {
-        res.status(404).send(createResponse(req.t("noDataProvided")));
+        res.status(400).send(createResponse(req.t("noDataProvided")));
         return;
       }
 
       const product = result1.value;
 
       // check the role of the product
-      const result = await product_module.updateByID(
-        result2.value.id,
-        product
-      );
+      const result = await product_module.updateByID(result2.value.id, product);
 
       const errorMessage = getErrorMessage(result);
       if (errorMessage) {
@@ -304,7 +301,7 @@ exports.updateByID = async (req, res) => {
     });
   } catch (error) {
     logger.info(error);
-    res.status(404).send(createResponse(req.t("imageUploadError")));
+    res.status(400).send(createResponse(req.t("imageUploadError")));
     return;
   }
 };
@@ -352,7 +349,7 @@ exports.deleteByID = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`deleted product with id ${result.id}`);
@@ -388,24 +385,28 @@ exports.patchByID = async (req, res) => {
 
   // check if result is an empty object
   if (Object.keys(result1.value).length === 0) {
-    res.status(404).send(createResponse(req.t("noDataProvided")));
+    res.status(400).send(createResponse(req.t("noDataProvided")));
     return;
   }
 
   const product = result1.value;
   let result = null;
   // patch the product inside the database based on transaction type
-  if(product.transaction_type === "OUTPUT") {
+  if (product.transaction_type === "OUTPUT") {
     // decrease the quantity of the product
-    result = await product_module.patchByID(value.id, { quantity: { decrement: product.quantity}});
-  } else if(product.transaction_type === "INPUT") {
+    result = await product_module.patchByID(value.id, {
+      quantity: { decrement: product.quantity },
+    });
+  } else if (product.transaction_type === "INPUT") {
     // increase the quantity of the product
-    result = await product_module.patchByID(value.id, { quantity: { increment: product.quantity}});
+    result = await product_module.patchByID(value.id, {
+      quantity: { increment: product.quantity },
+    });
   }
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`updated product with id ${result.id}`);

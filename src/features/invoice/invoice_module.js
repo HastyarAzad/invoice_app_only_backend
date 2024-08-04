@@ -18,6 +18,7 @@ const invoiceSelect = {
       id: true,
       product_id: true,
       quantity: true,
+      line_price: true,
       createdAt: true,
       updatedAt: true,
       product: {
@@ -29,7 +30,7 @@ const invoiceSelect = {
 
 // Define a function to handle errors
 function handleError(err) {
-  logger.info(err);
+  console.log(err);
   return { errorOccured: err };
 }
 
@@ -167,20 +168,56 @@ async function createOne(invoice) {
   }
 }
 
-async function updateByID(id, invoice) {
-  return new Promise((resolve, reject) => {
-    prismaClient.invoice
-      .update({
+async function updateByID(id, invoice, products, customer) {
+  try {
+    const result = await prismaClient.$transaction(async (prismaClient) => {
+      // Update the customer's balance
+      await prismaClient.customer.update({
+        where: {
+          id: customer.id,
+        },
+        data: customer,
+      });
+
+      // Update the quantity for all the products in the invoice
+      await Promise.all(
+        products.map((product) =>
+          prismaClient.product.update({
+            where: {
+              id: product.id,
+            },
+            data: product,
+          })
+        )
+      );
+
+      // Update the invoice
+      return prismaClient.invoice.update({
         where: {
           id,
           isDeleted: false,
         },
-        data: invoice,
+        data: {
+          sub_total: invoice.sub_total,
+          tax: invoice.tax,
+          total: invoice.total,
+          invoice_line: {
+            deleteMany: {}, // Delete all existing invoice lines
+            create: invoice.invoice_line.map((line) => ({
+              product_id: line.product_id,
+              quantity: line.quantity,
+              line_price: line.line_price,
+            })),
+          },
+        },
         select: invoiceSelect,
-      })
-      .then((result) => resolve(result))
-      .catch((err) => resolve(handleError(err)));
-  });
+      });
+    });
+
+    return result;
+  } catch (err) {
+    return handleError(err);
+  }
 }
 
 async function deleteByID(id) {

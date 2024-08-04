@@ -18,6 +18,7 @@
   "passwordIncorrect": "Password incorrect",
   "noRefreshTokenProvided": "No refresh token provided",
   "userNotFound": "User not found",
+  "imageUploadError": "Error uploading image",
   "productNotFound": "Product with the id {{ids}} not found",
   "productNotInStock": "Product with the id {{ids}} is not in stock",
   "customerNotEnoughBalance": "Customer does not have enough balance",

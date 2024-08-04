@@ -1,4 +1,3 @@
-
 ###-------------------- GET ALL userS ------------###
 GET {{host}}/users?page=1&perPage=20
 key: {{key}}
@@ -6,13 +5,107 @@ Accept-Language: ar
 Content-Type: application/json
 Authorization: Bearer {{super_admin_token}}
 
+###-------------------- response ------------###
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 368
+# ETag: W/"170-/E9zr9mwuO6rEwYZd6clA90gizU"
+# Date: Sun, 04 Aug 2024 14:52:45 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع جميع القيم",
+#   "page_meta": {
+#     "total": 2,
+#     "deleted": 2,
+#     "page": 1,
+#     "perPage": 20,
+#     "totalPages": 1
+#   },
+#   "data": [
+#     {
+#       "id": 1,
+#       "email": "test@gmail.com",
+#       "createdAt": "2024-07-30T09:42:27.579Z",
+#       "updatedAt": "2024-08-02T18:03:14.390Z"
+#     },
+#     {
+#       "id": 2,
+#       "email": "Hastyar@gmail.com",
+#       "createdAt": "2024-08-02T18:02:52.091Z",
+#       "updatedAt": "2024-08-02T18:02:52.091Z"
+#     }
+#   ]
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 134
+# ETag: W/"86-4ufgd/167eyhg0Gxa6XpmvrVsP8"
+# Date: Sun, 04 Aug 2024 15:02:05 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل",
+#   "page_meta": {
+#     "total": 0,
+#     "deleted": 0,
+#     "page": 0,
+#     "perPage": 0,
+#     "totalPages": 0
+#   },
+#   "data": []
+# }
+
 ###-------------------- GET user BY ID ------------###
-GET {{host}}/user/2
+GET {{host}}/user/221
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
+###-------------------- response ------------###
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 181
+# ETag: W/"b5-I47oPsl7LieEFeVvzwCDOPwBcEU"
+# Date: Sun, 04 Aug 2024 14:59:08 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع قيمة واحدة",
+#   "data": {
+#     "id": 2,
+#     "email": "Hastyar@gmail.com",
+#     "createdAt": "2024-08-02T18:02:52.091Z",
+#     "updatedAt": "2024-08-02T18:02:52.091Z"
+#   }
+# }
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:00:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
 
 ###-------------------- CREATE user ------------###
 POST {{host}}/register
@@ -22,9 +115,48 @@ Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
 {
-  "email": "Hastyar@gmail.com",
+  "email": "Hastyar123@gmail.com",
   "password": "123456789"
 }
+
+###-------------------- response ------------###
+# success 
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 169
+# ETag: W/"a9-lmTSotZVnkRIHBHj5vqF+kL/f2g"
+# Date: Sun, 04 Aug 2024 15:02:51 GMT
+# Connection: close
+
+# {
+#   "message": "تم الإنشاء بنجاح",
+#   "data": {
+#     "id": 6,
+#     "email": "Hastyar123@gmail.com",
+#     "createdAt": "2024-08-04T15:02:51.708Z",
+#     "updatedAt": "2024-08-04T15:02:51.708Z"
+#   }
+# }
+
+# already exists 
+
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 37
+# ETag: W/"25-u9N90DCu52wM3oapcCsRfwQiJBM"
+# Date: Sun, 04 Aug 2024 15:32:32 GMT
+# Connection: close
+
+# {
+#   "message": "موجود بالفعل"
+# }
+
 
 ###-------------------- login user ------------###
 POST {{host}}/login
@@ -33,9 +165,48 @@ key: {{key}}
 Accept-Language: ar
 
 {
-  "email": "test@gmail.com",
-  "password": "12345678"
+  "email": "hastyar123@gmail.com",
+  "password": "123456789"
 }
+
+# failed 
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 28
+# ETag: W/"1c-ZEVVcvtFhxKX/QUvVKqKxwGbbNA"
+# Date: Sun, 04 Aug 2024 15:32:47 GMT
+# Connection: close
+
+# {
+#   "message": "User not found"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1002
+# ETag: W/"3ea-MRV8mzc7pFnsKT+2nIwIxmfEFvs"
+# Date: Sun, 04 Aug 2024 15:33:30 GMT
+# Connection: close
+
+# {
+#   "message": "loginSuccessful",
+#   "data": {
+#     "id": 6,
+#     "email": "Hastyar123@gmail.com",
+#     "createdAt": "2024-08-04T15:02:51.708Z",
+#     "updatedAt": "2024-08-04T15:02:51.708Z",
+#     "user_access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJlbWFpbCI6Ikhhc3R5YXIxMjNAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyNC0wOC0wNFQxNTowMjo1MS43MDhaIiwidXBkYXRlZEF0IjoiMjAyNC0wOC0wNFQxNTowMjo1MS43MDhaIiwicGFzc3dvcmQiOiIkMmIkMTAkbkN2OWhkNi95aHdSb2FxYk9rd09zZWNIVlVLMUo5Z2dlSW9iMi9BWWNDd2ozM2tOWGlDbHEifSwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MjI3ODU2MTAsImV4cCI6MTcyMjg3MjAxMH0.Zs2XcbVR6q82htbcrZJhCulc-77Q42-KMjnOxlfQVZE",
+#     "user_refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo2LCJlbWFpbCI6Ikhhc3R5YXIxMjNAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyNC0wOC0wNFQxNTowMjo1MS43MDhaIiwidXBkYXRlZEF0IjoiMjAyNC0wOC0wNFQxNTowMjo1MS43MDhaIiwicGFzc3dvcmQiOiIkMmIkMTAkbkN2OWhkNi95aHdSb2FxYk9rd09zZWNIVlVLMUo5Z2dlSW9iMi9BWWNDd2ozM2tOWGlDbHEifSwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MjI3ODU2MTB9.yPxyfq_6-_dnb5wwziIpjobbjE8i-JW0kMAuvpXRqrQ"
+#   }
+# }
+
 
 ###-------------------- refresh token ------------###
 POST {{host}}/refresh_token
@@ -44,25 +215,113 @@ key: {{key}}
 Accept-Language: ar
 
 {
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjQtMDctMzBUMDk6NDI6MjcuNTc5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDgtMDFUMDc6MDE6NDMuMDQzWiIsInBhc3N3b3JkIjoiJDJiJDEwJDF2U1FiaDgzNmxSeGJMRXdXeldUQ2U4TW1IZm56aUlnNTZtQjNZSEZSOGROUzVCbjRKcksuIn0sInJvbGUiOiJVU0VSIiwiaWF0IjoxNzIyNjIxNjMyfQ.0EajANoQO0v_xqISexiC_yK9y31S7MztMtPRL0ym9mM"
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp 7ImlkIjoxLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjQtMDctMzBUMDk6NDI6MjcuNTc5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDgtMDFUMDc6MDE6NDMuMDQzWiIsInBhc3N3b3JkIjoiJDJiJDEwJDF2U1FiaDgzNmxSeGJMRXdXeldUQ2U4TW1IZm56aUlnNTZtQjNZSEZSOGROUzVCbjRKcksuIn0sInJvbGUiOiJVU0VSIiwiaWF0IjoxNzIyNjIxNjMyfQ.0EajANoQO0v_xqISexiC_yK9y31S7MztMtPRL0ym9mM"
 }
+
+# failed
+# HTTP/1.1 401 Unauthorized
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 33
+# ETag: W/"21-br1Bv1wpdp/mtjXjYCNfvUAjEfY"
+# Date: Sun, 04 Aug 2024 15:37:14 GMT
+# Connection: close
+
+# {
+#   "message": "invalidRefreshToken"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 991
+# ETag: W/"3df-gDM3qtsnqRHKD9GRL8R/cCM5GwE"
+# Date: Sun, 04 Aug 2024 15:36:52 GMT
+# Connection: close
+
+# {
+#   "message": "refreshTokenSuccessful",
+#   "data": {
+#     "id": 1,
+#     "email": "hello@gmail.com",
+#     "createdAt": "2024-07-30T09:42:27.579Z",
+#     "updatedAt": "2024-08-01T07:01:43.043Z",
+#     "user_access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjQtMDctMzBUMDk6NDI6MjcuNTc5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDgtMDFUMDc6MDE6NDMuMDQzWiIsInBhc3N3b3JkIjoiJDJiJDEwJDF2U1FiaDgzNmxSeGJMRXdXeldUQ2U4TW1IZm56aUlnNTZtQjNZSEZSOGROUzVCbjRKcksuIn0sInJvbGUiOiJVU0VSIiwiaWF0IjoxNzIyNzg1ODEyLCJleHAiOjE3MjI4NzIyMTJ9.cLHpuGotHokiyzYQKH5U1I0AI-fTRZOdKhJQrZKOAC8",
+#     "user_refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjQtMDctMzBUMDk6NDI6MjcuNTc5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDgtMDFUMDc6MDE6NDMuMDQzWiIsInBhc3N3b3JkIjoiJDJiJDEwJDF2U1FiaDgzNmxSeGJMRXdXeldUQ2U4TW1IZm56aUlnNTZtQjNZSEZSOGROUzVCbjRKcksuIn0sInJvbGUiOiJVU0VSIiwiaWF0IjoxNzIyNzg1ODEyfQ.hbDQIEmg2u53hcO7bPQHDs-nwu23sQgNfTfxPVO5p4g"
+#   }
+# }
 
 ###-------------------- change user password ------------###
 
-PUT {{host}}/change_password/1
+PUT {{host}}/change_password/6
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
 {
-  "old_password": "12345678",
+  "old_password": "123456789",
   "new_password": "12345678"
 }
 
+# failedHTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:37:31 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
+
+# failed
+# HTTP/1.1 401 Unauthorized
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 36
+# ETag: W/"24-WaxBJS6liRgxGFhkxXQQXWUsbAE"
+# Date: Sun, 04 Aug 2024 15:38:02 GMT
+# Connection: close
+
+# {
+#   "message": "Incorrect old password"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 169
+# ETag: W/"a9-BcZ7rvMwclQaAR7Yo/v5OXtN68w"
+# Date: Sun, 04 Aug 2024 15:38:26 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 6,
+#     "email": "Hastyar123@gmail.com",
+#     "createdAt": "2024-08-04T15:02:51.708Z",
+#     "updatedAt": "2024-08-04T15:38:26.912Z"
+#   }
+# }
+
 ###-------------------- UPDATE user ------------###
 
-PUT {{host}}/user/1
+PUT {{host}}/user/63
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
@@ -72,9 +331,81 @@ Authorization: Bearer {{super_admin_token}}
   "email": "test@gmail.com"
 }
 
+#success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 163
+# ETag: W/"a3-TfhMo4RycskE2nqp1Ni+VVLEpGY"
+# Date: Sun, 04 Aug 2024 15:39:09 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 6,
+#     "email": "test@gmail.com",
+#     "createdAt": "2024-08-04T15:02:51.708Z",
+#     "updatedAt": "2024-08-04T15:39:09.177Z"
+#   }
+# }
+
+# failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:31 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
 ###-------------------- DELETE user ------------###
-DELETE {{host}}/user/24
+DELETE {{host}}/user/6
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
+
+#  failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:43 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 159
+# ETag: W/"9f-0yXebC40WwhPi1Y4qujiyWOYs08"
+# Date: Sun, 04 Aug 2024 15:40:04 GMT
+# Connection: close
+
+# {
+#   "message": "تم الحذف بنجاح",
+#   "data": {
+#     "id": 6,
+#     "email": "test@gmail.com",
+#     "createdAt": "2024-08-04T15:02:51.708Z",
+#     "updatedAt": "2024-08-04T15:39:09.177Z"
+#   }
+# }

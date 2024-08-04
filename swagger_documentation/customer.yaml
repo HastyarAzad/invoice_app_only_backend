@@ -1,0 +1,566 @@
+openapi: 3.0.3
+info:
+  title: Customer API
+  description: API for managing customers.
+  version: 1.0.0
+servers:
+  - url: '{{host}}'
+    description: Base URL for API requests
+paths:
+  /customers:
+    get:
+      summary: Get All Customers
+      description: Retrieves a paginated list of customers.
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination.
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          description: Number of customers per page.
+          required: true
+          schema:
+            type: integer
+            example: 20
+      responses:
+        '200':
+          description: Successful retrieval of customers.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "نجاح, تم إرجاع جميع القيم"
+                  page_meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 1
+                      deleted:
+                        type: integer
+                        example: 0
+                      page:
+                        type: integer
+                        example: 1
+                      perPage:
+                        type: integer
+                        example: 20
+                      totalPages:
+                        type: integer
+                        example: 1
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        first_name:
+                          type: string
+                          example: "customer"
+                        last_name:
+                          type: string
+                          example: "good"
+                        address:
+                          type: string
+                          example: "slemani street"
+                        phone:
+                          type: string
+                          example: "+964 750 123 0000"
+                        balance:
+                          type: integer
+                          example: 64000
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: "2024-08-01T08:18:27.091Z"
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          example: "2024-08-04T10:47:59.694Z"
+                        invoice:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 5
+                              customer_id:
+                                type: integer
+                                example: 1
+                              unique_id:
+                                type: string
+                                example: "2024-0001"
+                              date:
+                                type: string
+                                format: date-time
+                                example: "2024-08-04T08:53:17.000Z"
+                              sub_total:
+                                type: integer
+                                example: 156000
+                              tax:
+                                type: integer
+                                example: 7800
+                              total:
+                                type: integer
+                                example: 163800
+                              createdAt:
+                                type: string
+                                format: date-time
+                                example: "2024-08-04T08:53:17.801Z"
+                              updatedAt:
+                                type: string
+                                format: date-time
+                                example: "2024-08-04T10:47:59.694Z"
+                              invoice_line:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                      example: 13
+                                    product_id:
+                                      type: integer
+                                      example: 1
+                                    quantity:
+                                      type: integer
+                                      example: 10
+                                    line_price:
+                                      type: integer
+                                      example: 120000
+                                    createdAt:
+                                      type: string
+                                      format: date-time
+                                      example: "2024-08-04T10:47:59.694Z"
+                                    updatedAt:
+                                      type: string
+                                      format: date-time
+                                      example: "2024-08-04T10:47:59.694Z"
+                                    product:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: integer
+                                          example: 1
+                                        supplier_id:
+                                          type: integer
+                                          example: 1
+                                        name:
+                                          type: string
+                                          example: "product name"
+                                        barcode:
+                                          type: string
+                                          example: "12342df23"
+                                        quantity:
+                                          type: integer
+                                          example: 5
+                                        price:
+                                          type: integer
+                                          example: 12000
+                                        image:
+                                          type: string
+                                          example: "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg"
+                                        createdAt:
+                                          type: string
+                                          format: date-time
+                                          example: "2024-08-01T09:48:14.868Z"
+                                        updatedAt:
+                                          type: string
+                                          format: date-time
+                                          example: "2024-08-04T09:28:00.827Z"
+        '404':
+          description: No records found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "لم يتم العثور على سجل"
+                  page_meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 0
+                      deleted:
+                        type: integer
+                        example: 0
+                      page:
+                        type: integer
+                        example: 0
+                      perPage:
+                        type: integer
+                        example: 0
+                      totalPages:
+                        type: integer
+                        example: 0
+                  data:
+                    type: array
+                    items:
+                      type: object
+  /customer/{id}:
+    get:
+      summary: Get Customer By ID
+      description: Retrieves a customer by their ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the customer to retrieve.
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successful retrieval of the customer.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "نجاح, تم إرجاع قيمة واحدة"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      first_name:
+                        type: string
+                        example: "customer"
+                      last_name:
+                        type: string
+                        example: "good"
+                      address:
+                        type: string
+                        example: "slemani street"
+                      phone:
+                        type: string
+                        example: "+964 750 123 0000"
+                      balance:
+                        type: integer
+                        example: 64000
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-08-01T08:18:27.091Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-08-04T10:47:59.694Z"
+                      invoice:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 5
+                            customer_id:
+                              type: integer
+                              example: 1
+                            unique_id:
+                              type: string
+                              example: "2024-0001"
+                            date:
+                              type: string
+                              format: date-time
+                              example: "2024-08-04T08:53:17.000Z"
+                            sub_total:
+                              type: integer
+                              example: 156000
+                            tax:
+                              type: integer
+                              example: 7800
+                            total:
+                              type: integer
+                              example: 163800
+                            createdAt:
+                              type: string
+                              format: date-time
+                              example: "2024-08-04T08:53:17.801Z"
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              example: "2024-08-04T10:47:59.694Z"
+                            invoice_line:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 13
+                                  product_id:
+                                    type: integer
+                                    example: 1
+                                  quantity:
+                                    type: integer
+                                    example: 10
+                                  line_price:
+                                    type: integer
+                                    example: 120000
+                                  createdAt:
+                                    type: string
+                                    format: date-time
+                                    example: "2024-08-04T10:47:59.694Z"
+                                  updatedAt:
+                                    type: string
+                                    format: date-time
+                                    example: "2024-08-04T10:47:59.694Z"
+                                  product:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                        example: 1
+                                      supplier_id:
+                                        type: integer
+                                        example: 1
+                                      name:
+                                        type: string
+                                        example: "product name"
+                                      barcode:
+                                        type: string
+                                        example: "12342df23"
+                                      quantity:
+                                        type: integer
+                                        example: 5
+                                      price:
+                                        type: integer
+                                        example: 12000
+                                      image:
+                                        type: string
+                                        example: "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg"
+                                      createdAt:
+                                        type: string
+                                        format: date-time
+                                        example: "2024-08-01T09:48:14.868Z"
+                                      updatedAt:
+                                        type: string
+                                        format: date-time
+                                        example: "2024-08-04T09:28:00.827Z"
+        '404':
+          description: Customer not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "لم يتم العثور على سجل"
+    post:
+      summary: Create Customer
+      description: Creates a new customer.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - last_name
+                - address
+                - phone
+                - balance
+              properties:
+                first_name:
+                  type: string
+                  example: "customer"
+                last_name:
+                  type: string
+                  example: "good"
+                address:
+                  type: string
+                  example: "slemani street"
+                phone:
+                  type: string
+                  example: "+964 750 123 0000"
+                balance:
+                  type: integer
+                  example: 64000
+      responses:
+        '201':
+          description: Customer created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "تمت عملية الإضافة بنجاح"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      first_name:
+                        type: string
+                        example: "customer"
+                      last_name:
+                        type: string
+                        example: "good"
+                      address:
+                        type: string
+                        example: "slemani street"
+                      phone:
+                        type: string
+                        example: "+964 750 123 0000"
+                      balance:
+                        type: integer
+                        example: 64000
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-08-01T08:18:27.091Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-08-04T10:47:59.694Z"
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "إدخال غير صحيح"
+    put:
+      summary: Update Customer
+      description: Updates an existing customer.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the customer to update.
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - last_name
+                - address
+                - phone
+                - balance
+              properties:
+                first_name:
+                  type: string
+                  example: "customer"
+                last_name:
+                  type: string
+                  example: "good"
+                address:
+                  type: string
+                  example: "slemani street"
+                phone:
+                  type: string
+                  example: "+964 750 123 0000"
+                balance:
+                  type: integer
+                  example: 64000
+      responses:
+        '200':
+          description: Customer updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "تمت عملية التعديل بنجاح"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      first_name:
+                        type: string
+                        example: "customer"
+                      last_name:
+                        type: string
+                        example: "good"
+                      address:
+                        type: string
+                        example: "slemani street"
+                      phone:
+                        type: string
+                        example: "+964 750 123 0000"
+                      balance:
+                        type: integer
+                        example: 64000
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-08-01T08:18:27.091Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-08-04T10:47:59.694Z"
+        '404':
+          description: Customer not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "لم يتم العثور على سجل"
+    delete:
+      summary: Delete Customer
+      description: Deletes a customer by ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the customer to delete.
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Customer deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "تمت عملية الحذف بنجاح"
+        '404':
+          description: Customer not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "لم يتم العثور على سجل"

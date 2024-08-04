@@ -38,7 +38,7 @@ exports.getAll = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   // if result is empty return 404 error no record found, else return the
@@ -47,7 +47,7 @@ exports.getAll = async (req, res) => {
     page_meta.totalPages = 0;
     page_meta.page = 0;
     page_meta.perPage = 0;
-    res.send(createResponse(req.t("noRecordFound"), [], page_meta));
+    res.status(404).send(createResponse(req.t("noRecordFound"), [], page_meta));
     return;
   }
 
@@ -72,7 +72,7 @@ exports.getById = async (req, res) => {
 
   if (error) {
     logger.info({ message: error.details[0].message });
-    res.status(404).send({ message: error.details[0].message });
+    res.status(400).send({ message: error.details[0].message });
     return;
   }
 
@@ -81,13 +81,13 @@ exports.getById = async (req, res) => {
   // logger.info("result of getById: ", result);
   // if result is empty return 404 error no customer found, else return the customer
   if (!result) {
-    res.send(createResponse(req.t("noRecordFound")));
+    res.status(404).send(createResponse(req.t("noRecordFound")));
     return;
   }
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`returned customer with id ${value.id}`);
@@ -110,13 +110,13 @@ exports.createOne = async (req, res) => {
   //check if error exists
   if (error) {
     logger.info({ message: error.details[0].message });
-    res.status(404).send({ message: error.details[0].message });
+    res.status(400).send({ message: error.details[0].message });
     return;
   }
 
   // check if result is an empty object
   if (Object.keys(value).length === 0) {
-    res.status(404).send(createResponse(req.t("noDataProvided")));
+    res.status(400).send(createResponse(req.t("noDataProvided")));
     return;
   }
 
@@ -137,7 +137,7 @@ exports.createOne = async (req, res) => {
     res.send(createResponse(req.t("createdSuccessful"), result));
   } catch (error) {
     logger.info(error);
-    res.status(404).send(createResponse(req.t("prisma.defaultPrismaError")));
+    res.status(500).send(createResponse(req.t("prisma.defaultPrismaError")));
   }
 };
 
@@ -173,7 +173,7 @@ exports.updateByID = async (req, res) => {
 
   // check if result is an empty object
   if (Object.keys(result1.value).length === 0) {
-    res.status(404).send(createResponse(req.t("noDataProvided")));
+    res.status(400).send(createResponse(req.t("noDataProvided")));
     return;
   }
 
@@ -184,7 +184,7 @@ exports.updateByID = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`updated customer with id ${result.id}`);
@@ -213,7 +213,7 @@ exports.deleteByID = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`deleted customer with id ${result.id}`);
@@ -249,7 +249,7 @@ exports.patchByID = async (req, res) => {
 
   // check if result is an empty object
   if (Object.keys(result1.value).length === 0) {
-    res.status(404).send(createResponse(req.t("noDataProvided")));
+    res.status(400).send(createResponse(req.t("noDataProvided")));
     return;
   }
 
@@ -262,19 +262,18 @@ exports.patchByID = async (req, res) => {
       balance: { increment: customer.balance },
     });
   } else if (customer.transaction_type === "WITHDRAW") {
-
     // check if the customer has enough balance to withdraw
     const checkCustomer = await customer_module.getById(value.id);
     if (!checkCustomer) {
-      res.send(createResponse(req.t("noRecordFound")));
+      res.status(404).send(createResponse(req.t("noRecordFound")));
       return;
     }
 
     if (checkCustomer.balance < customer.balance) {
-      res.send(createResponse(req.t("insufficientBalance")));
+      res.status(400).send(createResponse(req.t("insufficientBalance")));
       return;
     }
-    
+
     result = await customer_module.patchByID(value.id, {
       balance: { decrement: customer.balance },
     });
@@ -282,7 +281,7 @@ exports.patchByID = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`updated customer with id ${result.id}`);

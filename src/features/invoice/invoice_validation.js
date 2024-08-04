@@ -30,10 +30,10 @@ exports.validate_update_object = (obj, joiErrors) => {
   const schema = Joi.object({
     customer_id: Joi.number().integer().min(1),
     date: Joi.date(),
-    // invoice_line: Joi.array().items(Joi.object({
-    //   product_id: Joi.number().integer().min(1).required(),
-    //   quantity: Joi.number().integer().min(1).required(),
-    // })),
+    invoice_line: Joi.array().items(Joi.object({
+      product_id: Joi.number().integer().min(1).required(),
+      quantity: Joi.number().integer().min(0).required(),
+    })),
   });
 
   return schema.validate(obj, { messages: joiErrors });

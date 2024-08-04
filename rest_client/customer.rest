@@ -6,12 +6,215 @@ Accept-Language: ar
 Content-Type: application/json 
 Authorization: Bearer {{super_admin_token}}
 
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1380
+# ETag: W/"564-o9SCm4+puUAj1+2tJ4lLPT8aUf4"
+# Date: Sun, 04 Aug 2024 15:40:37 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع جميع القيم",
+#   "page_meta": {
+#     "total": 1,
+#     "deleted": 0,
+#     "page": 1,
+#     "perPage": 20,
+#     "totalPages": 1
+#   },
+#   "data": [
+#     {
+#       "id": 1,
+#       "first_name": "customer",
+#       "last_name": "good",
+#       "address": "slemani street",
+#       "phone": "+964 750 123 0000",
+#       "balance": 64000,
+#       "createdAt": "2024-08-01T08:18:27.091Z",
+#       "updatedAt": "2024-08-04T10:47:59.694Z",
+#       "invoice": [
+#         {
+#           "id": 5,
+#           "customer_id": 1,
+#           "unique_id": "2024-0001",
+#           "date": "2024-08-04T08:53:17.000Z",
+#           "sub_total": 156000,
+#           "tax": 7800,
+#           "total": 163800,
+#           "createdAt": "2024-08-04T08:53:17.801Z",
+#           "updatedAt": "2024-08-04T10:47:59.694Z",
+#           "invoice_line": [
+#             {
+#               "id": 13,
+#               "product_id": 1,
+#               "quantity": 10,
+#               "line_price": 120000,
+#               "createdAt": "2024-08-04T10:47:59.694Z",
+#               "updatedAt": "2024-08-04T10:47:59.694Z",
+#               "product": {
+#                 "id": 1,
+#                 "supplier_id": 1,
+#                 "name": "product name",
+#                 "barcode": "12342df23",
+#                 "quantity": 5,
+#                 "price": 12000,
+#                 "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#                 "createdAt": "2024-08-01T09:48:14.868Z",
+#                 "updatedAt": "2024-08-04T09:28:00.827Z"
+#               }
+#             },
+#             {
+#               "id": 14,
+#               "product_id": 2,
+#               "quantity": 3,
+#               "line_price": 36000,
+#               "createdAt": "2024-08-04T10:47:59.694Z",
+#               "updatedAt": "2024-08-04T10:47:59.694Z",
+#               "product": {
+#                 "id": 2,
+#                 "supplier_id": 1,
+#                 "name": "product name",
+#                 "barcode": "12342df23",
+#                 "quantity": 12,
+#                 "price": 12000,
+#                 "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#                 "createdAt": "2024-08-01T09:52:10.947Z",
+#                 "updatedAt": "2024-08-04T09:28:05.931Z"
+#               }
+#             }
+#           ]
+#         }
+#       ]
+#     }
+#   ]
+# }
+
+# error
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 134
+# ETag: W/"86-4ufgd/167eyhg0Gxa6XpmvrVsP8"
+# Date: Sun, 04 Aug 2024 15:02:05 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل",
+#   "page_meta": {
+#     "total": 0,
+#     "deleted": 0,
+#     "page": 0,
+#     "perPage": 0,
+#     "totalPages": 0
+#   },
+#   "data": []
+# }
+
 ###-------------------- GET customer BY ID ------------###
 GET {{host}}/customer/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1305
+# ETag: W/"519-UyuklubaxgZOLuNQ0a5PyOgJ+8g"
+# Date: Sun, 04 Aug 2024 15:42:21 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع قيمة واحدة",
+#   "data": {
+#     "id": 1,
+#     "first_name": "customer",
+#     "last_name": "good",
+#     "address": "slemani street",
+#     "phone": "+964 750 123 0000",
+#     "balance": 64000,
+#     "createdAt": "2024-08-01T08:18:27.091Z",
+#     "updatedAt": "2024-08-04T10:47:59.694Z",
+#     "invoice": [
+#       {
+#         "id": 5,
+#         "customer_id": 1,
+#         "unique_id": "2024-0001",
+#         "date": "2024-08-04T08:53:17.000Z",
+#         "sub_total": 156000,
+#         "tax": 7800,
+#         "total": 163800,
+#         "createdAt": "2024-08-04T08:53:17.801Z",
+#         "updatedAt": "2024-08-04T10:47:59.694Z",
+#         "invoice_line": [
+#           {
+#             "id": 13,
+#             "product_id": 1,
+#             "quantity": 10,
+#             "line_price": 120000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 1,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 5,
+#               "price": 12000,
+#               "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#               "createdAt": "2024-08-01T09:48:14.868Z",
+#               "updatedAt": "2024-08-04T09:28:00.827Z"
+#             }
+#           },
+#           {
+#             "id": 14,
+#             "product_id": 2,
+#             "quantity": 3,
+#             "line_price": 36000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 2,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 12,
+#               "price": 12000,
+#               "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#               "createdAt": "2024-08-01T09:52:10.947Z",
+#               "updatedAt": "2024-08-04T09:28:05.931Z"
+#             }
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# }
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:00:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
 
 
 ###-------------------- CREATE customer ------------###
@@ -29,9 +232,35 @@ Authorization: Bearer {{super_admin_token}}
   "balance": 500000
 }
 
+# success
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 266
+# ETag: W/"10a-IMRcbvd4ItnsB3uKwgtzXU78Hq4"
+# Date: Sun, 04 Aug 2024 15:42:38 GMT
+# Connection: close
+
+# {
+#   "message": "تم الإنشاء بنجاح",
+#   "data": {
+#     "id": 2,
+#     "first_name": "customer",
+#     "last_name": "good",
+#     "address": "slemani street",
+#     "phone": "+964 750 123 0000",
+#     "balance": 500000,
+#     "createdAt": "2024-08-04T15:42:38.458Z",
+#     "updatedAt": "2024-08-04T15:42:38.458Z",
+#     "invoice": []
+#   }
+# }
+
+
 ###-------------------- UPDATE customer ------------###
 
-PUT {{host}}/customer/23
+PUT {{host}}/customer/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
@@ -44,12 +273,147 @@ Authorization: Bearer {{super_admin_token}}
   "phone": "9647501230000"
 }
 
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1290
+# ETag: W/"50a-u6odmE0j/wIfkOyjBDWJVlGspC8"
+# Date: Sun, 04 Aug 2024 15:44:12 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "first_name": "customer",
+#     "last_name": "good",
+#     "address": "slemani street",
+#     "phone": "+964 750 123 0000",
+#     "balance": 64000,
+#     "createdAt": "2024-08-01T08:18:27.091Z",
+#     "updatedAt": "2024-08-04T15:44:12.003Z",
+#     "invoice": [
+#       {
+#         "id": 5,
+#         "customer_id": 1,
+#         "unique_id": "2024-0001",
+#         "date": "2024-08-04T08:53:17.000Z",
+#         "sub_total": 156000,
+#         "tax": 7800,
+#         "total": 163800,
+#         "createdAt": "2024-08-04T08:53:17.801Z",
+#         "updatedAt": "2024-08-04T10:47:59.694Z",
+#         "invoice_line": [
+#           {
+#             "id": 13,
+#             "product_id": 1,
+#             "quantity": 10,
+#             "line_price": 120000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 1,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 5,
+#               "price": 12000,
+#               "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#               "createdAt": "2024-08-01T09:48:14.868Z",
+#               "updatedAt": "2024-08-04T09:28:00.827Z"
+#             }
+#           },
+#           {
+#             "id": 14,
+#             "product_id": 2,
+#             "quantity": 3,
+#             "line_price": 36000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 2,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 12,
+#               "price": 12000,
+#               "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#               "createdAt": "2024-08-01T09:52:10.947Z",
+#               "updatedAt": "2024-08-04T09:28:05.931Z"
+#             }
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# }
+
+#failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:43:37 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
 ###-------------------- DELETE customer ------------###
-DELETE {{host}}/customer/24
+DELETE {{host}}/customer/2
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
+
+#  failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:43 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 262
+# ETag: W/"106-wjJLyFe7/vbbWC7XcrfYvY4nhWM"
+# Date: Sun, 04 Aug 2024 15:46:14 GMT
+# Connection: close
+
+# {
+#   "message": "تم الحذف بنجاح",
+#   "data": {
+#     "id": 2,
+#     "first_name": "customer",
+#     "last_name": "good",
+#     "address": "slemani street",
+#     "phone": "+964 750 123 0000",
+#     "balance": 500000,
+#     "createdAt": "2024-08-04T15:42:38.458Z",
+#     "updatedAt": "2024-08-04T15:46:14.137Z",
+#     "invoice": []
+#   }
+# }
+
 
 
 ###-------------------- PATCH customer ------------###
@@ -60,9 +424,103 @@ Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
 {
-  "balance": 500000,
+  "balance": 500,
   "transaction_type": "WITHDRAW"
 }
+
+
+#failed
+# HTTP/1.1 400 Bad Request
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 33
+# ETag: W/"21-ZJTMzrAaQ7rePz7/gAVLIeAUMho"
+# Date: Sun, 04 Aug 2024 15:46:35 GMT
+# Connection: close
+
+# {
+#   "message": "insufficientBalance"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1290
+# ETag: W/"50a-sqMwg5WJApDqw2cjFgpXhOivm2s"
+# Date: Sun, 04 Aug 2024 15:47:02 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "first_name": "customer",
+#     "last_name": "good",
+#     "address": "slemani street",
+#     "phone": "+964 750 123 0000",
+#     "balance": 63500,
+#     "createdAt": "2024-08-01T08:18:27.091Z",
+#     "updatedAt": "2024-08-04T15:47:02.337Z",
+#     "invoice": [
+#       {
+#         "id": 5,
+#         "customer_id": 1,
+#         "unique_id": "2024-0001",
+#         "date": "2024-08-04T08:53:17.000Z",
+#         "sub_total": 156000,
+#         "tax": 7800,
+#         "total": 163800,
+#         "createdAt": "2024-08-04T08:53:17.801Z",
+#         "updatedAt": "2024-08-04T10:47:59.694Z",
+#         "invoice_line": [
+#           {
+#             "id": 13,
+#             "product_id": 1,
+#             "quantity": 10,
+#             "line_price": 120000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 1,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 5,
+#               "price": 12000,
+#               "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#               "createdAt": "2024-08-01T09:48:14.868Z",
+#               "updatedAt": "2024-08-04T09:28:00.827Z"
+#             }
+#           },
+#           {
+#             "id": 14,
+#             "product_id": 2,
+#             "quantity": 3,
+#             "line_price": 36000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 2,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 12,
+#               "price": 12000,
+#               "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#               "createdAt": "2024-08-01T09:52:10.947Z",
+#               "updatedAt": "2024-08-04T09:28:05.931Z"
+#             }
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# }
 
 ###-------------------- PATCH customer ------------###
 PATCH {{host}}/customer/add_balance/1
@@ -75,3 +533,96 @@ Authorization: Bearer {{super_admin_token}}
   "balance": 500000,
   "transaction_type": "DEPOSIT"
 }
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 134
+# ETag: W/"86-Hz3RzLZZ3wbO2Xd86ziB6f5eBeg"
+# Date: Sun, 04 Aug 2024 15:47:46 GMT
+# Connection: close
+
+# {
+#   "message": "يجب أن يتطابق \"transaction_type\" مع واحدة من القيم المسموح بها: [DEPOSIT, WITHDRAW]"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1291
+# ETag: W/"50b-vt9iH0cuEdpNorE6mJcXq2D2VZU"
+# Date: Sun, 04 Aug 2024 15:47:22 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "first_name": "customer",
+#     "last_name": "good",
+#     "address": "slemani street",
+#     "phone": "+964 750 123 0000",
+#     "balance": 563500,
+#     "createdAt": "2024-08-01T08:18:27.091Z",
+#     "updatedAt": "2024-08-04T15:47:22.763Z",
+#     "invoice": [
+#       {
+#         "id": 5,
+#         "customer_id": 1,
+#         "unique_id": "2024-0001",
+#         "date": "2024-08-04T08:53:17.000Z",
+#         "sub_total": 156000,
+#         "tax": 7800,
+#         "total": 163800,
+#         "createdAt": "2024-08-04T08:53:17.801Z",
+#         "updatedAt": "2024-08-04T10:47:59.694Z",
+#         "invoice_line": [
+#           {
+#             "id": 13,
+#             "product_id": 1,
+#             "quantity": 10,
+#             "line_price": 120000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 1,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 5,
+#               "price": 12000,
+#               "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#               "createdAt": "2024-08-01T09:48:14.868Z",
+#               "updatedAt": "2024-08-04T09:28:00.827Z"
+#             }
+#           },
+#           {
+#             "id": 14,
+#             "product_id": 2,
+#             "quantity": 3,
+#             "line_price": 36000,
+#             "createdAt": "2024-08-04T10:47:59.694Z",
+#             "updatedAt": "2024-08-04T10:47:59.694Z",
+#             "product": {
+#               "id": 2,
+#               "supplier_id": 1,
+#               "name": "product name",
+#               "barcode": "12342df23",
+#               "quantity": 12,
+#               "price": 12000,
+#               "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#               "createdAt": "2024-08-01T09:52:10.947Z",
+#               "updatedAt": "2024-08-04T09:28:05.931Z"
+#             }
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# }

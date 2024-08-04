@@ -6,12 +6,50 @@ Accept-Language: ar
 Content-Type: application/json 
 Authorization: Bearer {{super_admin_token}}
 
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 134
+# ETag: W/"86-4ufgd/167eyhg0Gxa6XpmvrVsP8"
+# Date: Sun, 04 Aug 2024 15:02:05 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل",
+#   "page_meta": {
+#     "total": 0,
+#     "deleted": 0,
+#     "page": 0,
+#     "perPage": 0,
+#     "totalPages": 0
+#   },
+#   "data": []
+# }
+
 ###-------------------- GET invoice BY ID ------------###
 GET {{host}}/invoice/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:00:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
 
 
 ###-------------------- CREATE invoice ------------###
@@ -26,31 +64,288 @@ Authorization: Bearer {{super_admin_token}}
   "invoice_line": [
     {
       "product_id": 1,
-      "quantity": 2
+      "quantity": 5
     },
     {
       "product_id": 2,
-      "quantity": 1
+      "quantity": 5
     }
   ]
 }
 
+#failed
+# HTTP/1.1 400 Bad Request
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 51
+# ETag: W/"33-KbjQA1YYgye3BE74RyAn4/87RUo"
+# Date: Sun, 04 Aug 2024 16:03:42 GMT
+# Connection: close
+
+# {
+#   "message": "Product with the id 1 is not in stock"
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1074
+# ETag: W/"432-sSqC+ILm6bRrStUGToyGwB93r+g"
+# Date: Sun, 04 Aug 2024 16:00:18 GMT
+# Connection: close
+
+# {
+#   "message": "تم الإنشاء بنجاح",
+#   "data": {
+#     "id": 6,
+#     "customer_id": 1,
+#     "unique_id": "2024-0002",
+#     "date": "2024-08-04T16:00:18.000Z",
+#     "sub_total": 120000,
+#     "tax": 6000,
+#     "total": 126000,
+#     "createdAt": "2024-08-04T16:00:18.025Z",
+#     "updatedAt": "2024-08-04T16:00:18.025Z",
+#     "invoice_line": [
+#       {
+#         "id": 15,
+#         "product_id": 1,
+#         "quantity": 5,
+#         "line_price": 60000,
+#         "createdAt": "2024-08-04T16:00:18.025Z",
+#         "updatedAt": "2024-08-04T16:00:18.025Z",
+#         "product": {
+#           "id": 1,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 0,
+#           "price": 12000,
+#           "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#           "createdAt": "2024-08-01T09:48:14.868Z",
+#           "updatedAt": "2024-08-04T16:00:18.025Z"
+#         }
+#       },
+#       {
+#         "id": 16,
+#         "product_id": 2,
+#         "quantity": 5,
+#         "line_price": 60000,
+#         "createdAt": "2024-08-04T16:00:18.025Z",
+#         "updatedAt": "2024-08-04T16:00:18.025Z",
+#         "product": {
+#           "id": 2,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 7,
+#           "price": 12000,
+#           "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#           "createdAt": "2024-08-01T09:52:10.947Z",
+#           "updatedAt": "2024-08-04T16:00:18.025Z"
+#         }
+#       }
+#     ]
+#   }
+# }
+
+
+
+
 ###-------------------- UPDATE invoice ------------###
 
-PUT {{host}}/invoice/23
+PUT {{host}}/invoice/5
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
 {
-  // add the fields here
+  "customer_id": 1,
+  "date": "2021-09-01",
+  "invoice_line": [
+    {
+      "product_id": 1,
+      "quantity": 1
+    },
+    {
+      "product_id": 2,
+      "quantity": 4
+    }
+  ]
 }
 
+#  failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:43 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1072
+# ETag: W/"430-Lp2/eyD5B8rKN2qDq74vZk4vQEc"
+# Date: Sun, 04 Aug 2024 16:05:21 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 5,
+#     "customer_id": 1,
+#     "unique_id": "2024-0001",
+#     "date": "2024-08-04T08:53:17.000Z",
+#     "sub_total": 60000,
+#     "tax": 3000,
+#     "total": 63000,
+#     "createdAt": "2024-08-04T08:53:17.801Z",
+#     "updatedAt": "2024-08-04T16:05:21.705Z",
+#     "invoice_line": [
+#       {
+#         "id": 17,
+#         "product_id": 1,
+#         "quantity": 1,
+#         "line_price": 12000,
+#         "createdAt": "2024-08-04T16:05:21.705Z",
+#         "updatedAt": "2024-08-04T16:05:21.705Z",
+#         "product": {
+#           "id": 1,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 9,
+#           "price": 12000,
+#           "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#           "createdAt": "2024-08-01T09:48:14.868Z",
+#           "updatedAt": "2024-08-04T16:00:18.025Z"
+#         }
+#       },
+#       {
+#         "id": 18,
+#         "product_id": 2,
+#         "quantity": 4,
+#         "line_price": 48000,
+#         "createdAt": "2024-08-04T16:05:21.705Z",
+#         "updatedAt": "2024-08-04T16:05:21.705Z",
+#         "product": {
+#           "id": 2,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 6,
+#           "price": 12000,
+#           "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#           "createdAt": "2024-08-01T09:52:10.947Z",
+#           "updatedAt": "2024-08-04T16:00:18.025Z"
+#         }
+#       }
+#     ]
+#   }
+# }
+
+
 ###-------------------- DELETE invoice ------------###
-DELETE {{host}}/invoice/24
+DELETE {{host}}/invoice/5
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
+#  failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:43 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 1068
+# ETag: W/"42c-vcKcwG+RlP8udPpGCmdQt6rmhAM"
+# Date: Sun, 04 Aug 2024 16:06:26 GMT
+# Connection: close
+
+# {
+#   "message": "تم الحذف بنجاح",
+#   "data": {
+#     "id": 5,
+#     "customer_id": 1,
+#     "unique_id": "2024-0001",
+#     "date": "2024-08-04T08:53:17.000Z",
+#     "sub_total": 60000,
+#     "tax": 3000,
+#     "total": 63000,
+#     "createdAt": "2024-08-04T08:53:17.801Z",
+#     "updatedAt": "2024-08-04T16:06:26.479Z",
+#     "invoice_line": [
+#       {
+#         "id": 17,
+#         "product_id": 1,
+#         "quantity": 1,
+#         "line_price": 12000,
+#         "createdAt": "2024-08-04T16:05:21.705Z",
+#         "updatedAt": "2024-08-04T16:05:21.705Z",
+#         "product": {
+#           "id": 1,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 9,
+#           "price": 12000,
+#           "image": "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg",
+#           "createdAt": "2024-08-01T09:48:14.868Z",
+#           "updatedAt": "2024-08-04T16:00:18.025Z"
+#         }
+#       },
+#       {
+#         "id": 18,
+#         "product_id": 2,
+#         "quantity": 4,
+#         "line_price": 48000,
+#         "createdAt": "2024-08-04T16:05:21.705Z",
+#         "updatedAt": "2024-08-04T16:05:21.705Z",
+#         "product": {
+#           "id": 2,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 6,
+#           "price": 12000,
+#           "image": "\\assets\\products\\aed12118-88fe-4810-be06-a091733b8630-question2.jpg",
+#           "createdAt": "2024-08-01T09:52:10.947Z",
+#           "updatedAt": "2024-08-04T16:00:18.025Z"
+#         }
+#       }
+#     ]
+#   }
+# }

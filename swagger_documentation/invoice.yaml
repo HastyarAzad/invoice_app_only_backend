@@ -1,0 +1,321 @@
+openapi: 3.0.0
+info:
+  title: Invoices API
+  description: API for managing invoices.
+  version: 1.0.0
+servers:
+  - url: {{host}}
+    description: API server
+components:
+  schemas:
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        customer_id:
+          type: integer
+          example: 1
+        unique_id:
+          type: string
+          example: "2024-0001"
+        date:
+          type: string
+          format: date-time
+          example: "2024-08-04T08:53:17.000Z"
+        sub_total:
+          type: integer
+          example: 60000
+        tax:
+          type: integer
+          example: 3000
+        total:
+          type: integer
+          example: 63000
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-08-04T08:53:17.801Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-08-04T16:05:21.705Z"
+        invoice_line:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 17
+              product_id:
+                type: integer
+                example: 1
+              quantity:
+                type: integer
+                example: 1
+              line_price:
+                type: integer
+                example: 12000
+              createdAt:
+                type: string
+                format: date-time
+                example: "2024-08-04T16:05:21.705Z"
+              updatedAt:
+                type: string
+                format: date-time
+                example: "2024-08-04T16:05:21.705Z"
+              product:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  supplier_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "product name"
+                  barcode:
+                    type: string
+                    example: "12342df23"
+                  quantity:
+                    type: integer
+                    example: 9
+                  price:
+                    type: integer
+                    example: 12000
+                  image:
+                    type: string
+                    example: "\\assets\\products\\d3cd097c-77e9-4b39-af9c-23a4835076ba-question2.jpg"
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: "2024-08-01T09:48:14.868Z"
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    example: "2024-08-04T16:00:18.025Z"
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "لم يتم العثور على سجل"
+    PageMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 0
+        deleted:
+          type: integer
+          example: 0
+        page:
+          type: integer
+          example: 0
+        perPage:
+          type: integer
+          example: 0
+        totalPages:
+          type: integer
+          example: 0
+  parameters:
+    id:
+      name: id
+      in: path
+      description: ID of the invoice.
+      required: true
+      schema:
+        type: integer
+        example: 1
+paths:
+  /invoices:
+    get:
+      summary: Get All Invoices
+      description: Retrieve a list of all invoices with pagination.
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination.
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          description: Number of invoices per page.
+          required: true
+          schema:
+            type: integer
+            example: 20
+      responses:
+        '200':
+          description: A list of invoices.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Success"
+                  page_meta:
+                    $ref: '#/components/schemas/PageMeta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Invoice'
+        '404':
+          description: No invoices found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create Invoice
+      description: Creates a new invoice.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_id
+                - invoice_line
+              properties:
+                customer_id:
+                  type: integer
+                  example: 1
+                invoice_line:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - product_id
+                      - quantity
+                    properties:
+                      product_id:
+                        type: integer
+                        example: 1
+                      quantity:
+                        type: integer
+                        example: 5
+      responses:
+        '201':
+          description: Invoice created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "تم الإنشاء بنجاح"
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invoice/{id}:
+    get:
+      summary: Get Invoice by ID
+      description: Retrieve an invoice by ID.
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: An invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '404':
+          description: Invoice not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update Invoice
+      description: Updates an existing invoice by ID.
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_id
+                - invoice_line
+              properties:
+                customer_id:
+                  type: integer
+                  example: 1
+                date:
+                  type: string
+                  format: date
+                  example: "2021-09-01"
+                invoice_line:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - product_id
+                      - quantity
+                    properties:
+                      product_id:
+                        type: integer
+                        example: 1
+                      quantity:
+                        type: integer
+                        example: 1
+      responses:
+        '200':
+          description: Invoice updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "تم التحديث بنجاح"
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete Invoice
+      description: Deletes an invoice by ID.
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Invoice deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "تم الحذف بنجاح"
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

@@ -42,7 +42,7 @@ exports.getAll = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   // if result is empty return 404 error no record found, else return the
@@ -51,7 +51,7 @@ exports.getAll = async (req, res) => {
     page_meta.totalPages = 0;
     page_meta.page = 0;
     page_meta.perPage = 0;
-    res.send(createResponse(req.t("noRecordFound"), [], page_meta));
+    res.status(404).send(createResponse(req.t("noRecordFound"), [], page_meta));
     return;
   }
 
@@ -76,7 +76,7 @@ exports.getById = async (req, res) => {
 
   if (error) {
     logger.info({ message: error.details[0].message });
-    res.status(404).send({ message: error.details[0].message });
+    res.status(400).send({ message: error.details[0].message });
     return;
   }
 
@@ -85,13 +85,13 @@ exports.getById = async (req, res) => {
   // logger.info("result of getById: ", result);
   // if result is empty return 404 error no invoice found, else return the invoice
   if (!result) {
-    res.send(createResponse(req.t("noRecordFound")));
+    res.status(404).send(createResponse(req.t("noRecordFound")));
     return;
   }
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`returned invoice with id ${value.id}`);
@@ -168,9 +168,7 @@ exports.createOne = async (req, res) => {
         .send(createResponse(req.t("customerNotEnoughBalance")));
     }
 
-    // return res.send(createResponse(req.t("fuck off")));
-
-    // open a transaction to do these things 
+    // open a transaction to do these things
     // reduce the customer balance by the invoice total
     // update the quantity for the products
     // insert the invoice into the database
@@ -314,18 +312,164 @@ exports.updateByID = async (req, res) => {
 
   // check if result is an empty object
   if (Object.keys(result1.value).length === 0) {
-    res.status(404).send(createResponse(req.t("noDataProvided")));
+    res.status(400).send(createResponse(req.t("noDataProvided")));
     return;
   }
 
   const invoice = result1.value;
 
+  // check if the invoice is found
+  const invoiceFound = await invoice_module.getById(result2.value.id);
+
+  if (!invoiceFound) {
+    return res.status(404).send(createResponse(req.t("noRecordFound")));
+  }
+
+  // calculate the difference between the two invoices in terms of quantity and line_price
+  let difference = invoiceFound.invoice_line.map((invoice_line) => {
+    const newInvoiceLine = invoice.invoice_line.find(
+      (newInvoiceLine) => newInvoiceLine.product_id === invoice_line.product_id
+    );
+
+    if (!newInvoiceLine) {
+      return {
+        product_id: invoice_line.product_id,
+        quantity: -invoice_line.quantity,
+        product: invoice_line.product,
+      };
+    }
+
+    // check if the quantity is different
+    if (newInvoiceLine.quantity === invoice_line.quantity) {
+      // skip the product
+      return null;
+    }
+
+    return {
+      product_id: invoice_line.product_id,
+      quantity: newInvoiceLine.quantity - invoice_line.quantity,
+      product: invoice_line.product,
+    };
+  });
+
+  // remove the null values from the difference array
+  difference = difference.filter((diff) => diff !== null);
+
+  // check if the difference is empty
+  if (difference.length === 0) {
+    return res.send(createResponse(req.t("noDifferenceFound")));
+  }
+
+  // console.log(difference);
+
+  // get the customer
+  const customer = await customer_module.getById(invoiceFound.customer_id);
+
+  if (!customer) {
+    return res.status(404).send(createResponse(req.t("customerNotFound")));
+  }
+
+  let products = [];
+
+  for (let i = 0; i < difference.length; i++) {
+    const diff = difference[i];
+    const product = await product_module.getById(diff.product_id);
+
+    if (!product) {
+      return res.status(404).send(createResponse(req.t("productNotFound")));
+    }
+
+    if (diff.quantity < 0) {
+      // update the product quantity
+      product.quantity += Math.abs(diff.quantity);
+      products.push(product);
+
+      // update the customer balance
+      customer.balance += Math.abs(diff.quantity) * product.price;
+    } else if (diff.quantity > 0) {
+      // check if the customer has enough balance
+      if (customer.balance < diff.quantity * product.price) {
+        return res
+          .status(400)
+          .send(createResponse(req.t("customerNotEnoughBalance")));
+      }
+
+      // check if the products are in stock
+      if (product.quantity < diff.quantity) {
+        return res.status(400).send(createResponse(req.t("productNotInStock")));
+      }
+
+      // update the product quantity
+      product.quantity -= diff.quantity;
+      products.push(product);
+
+      customer.balance -= diff.quantity * product.price;
+    }
+  }
+
+  // if date is provided, update the date
+  if (invoice.date) {
+    invoiceFound.date = invoice.date;
+  }
+
+  // update invoiceFound.invoiceLine.quantities and line_prices
+  invoiceFound.invoice_line = invoice.invoice_line.map((invoice_line) => {
+    const product = products.find(
+      (product) => product.id === invoice_line.product_id
+    );
+
+    invoice_line.line_price = product.price * invoice_line.quantity;
+    return invoice_line;
+  });
+
+  // calculate the sub_total of the invoice
+  invoiceFound.sub_total = invoiceFound.invoice_line.reduce(
+    (total, invoice_line) => {
+      return total + invoice_line.line_price;
+    },
+    0
+  );
+
+  // calculate the tax of the invoice
+  invoiceFound.tax = await getTax(invoiceFound.sub_total);
+
+  // calculate the total of the invoice
+  invoiceFound.total = invoiceFound.sub_total + invoiceFound.tax;
+
+  const invoice_update_object = {
+    sub_total: invoiceFound.sub_total,
+    tax: invoiceFound.tax,
+    total: invoiceFound.total,
+    invoice_line: invoiceFound.invoice_line,
+  };
+
+  // get only required fields from customer
+  const customer_update_object = {
+    id: customer.id,
+    balance: customer.balance,
+  };
+
+  // console.log(invoice);
+  // console.log("invoice line found: ", invoiceFound);
+  // console.log(difference);
+  // console.log("products: ", products);
+  // console.log("customer: ", customer);
+
+  // console.log(invoice_update_object);
+
+  // return res.send(createResponse("done"));
+
   // check the role of the invoice
-  const result = await invoice_module.updateByID(result2.value.id, invoice);
+  const result = await invoice_module.updateByID(
+    result2.value.id,
+    invoice_update_object,
+    products,
+    customer_update_object
+  );
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`updated invoice with id ${result.id}`);
@@ -354,7 +498,7 @@ exports.deleteByID = async (req, res) => {
 
   const errorMessage = getErrorMessage(result);
   if (errorMessage) {
-    return res.status(404).send(createResponse(req.t(errorMessage)));
+    return res.status(500).send(createResponse(req.t(errorMessage)));
   }
 
   logger.info(`deleted invoice with id ${result.id}`);

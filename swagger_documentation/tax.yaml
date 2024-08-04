@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Tax API
+  version: 1.0.0
+paths:
+  /tax/{id}:
+    get:
+      summary: Get Tax by ID
+      description: Retrieve a tax record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tax record to retrieve.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response with tax record.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      rate:
+                        type: integer
+                      threshold:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '404':
+          description: Tax record not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    patch:
+      summary: Update Tax Record
+      description: Update a tax record by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tax record to update.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rate:
+                  type: integer
+                threshold:
+                  type: integer
+      responses:
+        '200':
+          description: Successful update of tax record.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      rate:
+                        type: integer
+                      threshold:
+                        type: integer
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '404':
+          description: Tax record not found or validation error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Tax:
+      type: object
+      properties:
+        id:
+          type: integer
+        rate:
+          type: integer
+        threshold:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+security:
+  - BearerAuth: []

@@ -6,12 +6,153 @@ Accept-Language: ar
 Content-Type: application/json 
 Authorization: Bearer {{super_admin_token}}
 
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 803
+# ETag: W/"323-PVi0ATVKcukQRz7Zg+7WAqTSQeg"
+# Date: Sun, 04 Aug 2024 16:15:02 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع جميع القيم",
+#   "page_meta": {
+#     "total": 1,
+#     "deleted": 0,
+#     "page": 1,
+#     "perPage": 20,
+#     "totalPages": 1
+#   },
+#   "data": [
+#     {
+#       "id": 1,
+#       "name": "supplier name",
+#       "phone": "+964 750 123 0022",
+#       "createdAt": "2024-08-01T08:45:00.810Z",
+#       "updatedAt": "2024-08-01T08:46:45.590Z",
+#       "product": [
+#         {
+#           "id": 1,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 19,
+#           "price": 12000,
+#           "image": "\\assets\\products\\eaf7d36f-9153-4dca-8035-dc28832df77f-question2.jpg",
+#           "createdAt": "2024-08-01T09:48:14.868Z",
+#           "updatedAt": "2024-08-04T16:11:28.315Z"
+#         },
+#         {
+#           "id": 5,
+#           "supplier_id": 1,
+#           "name": "product name",
+#           "barcode": "12342df23",
+#           "quantity": 10,
+#           "price": 14000,
+#           "image": "\\assets\\products\\ba29e36a-949d-4dc1-96c2-c498234e5fd6-question2.jpg",
+#           "createdAt": "2024-08-04T16:08:17.892Z",
+#           "updatedAt": "2024-08-04T16:08:17.892Z"
+#         }
+#       ]
+#     }
+#   ]
+# }
+
+
+# error
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 134
+# ETag: W/"86-4ufgd/167eyhg0Gxa6XpmvrVsP8"
+# Date: Sun, 04 Aug 2024 15:02:05 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل",
+#   "page_meta": {
+#     "total": 0,
+#     "deleted": 0,
+#     "page": 0,
+#     "perPage": 0,
+#     "totalPages": 0
+#   },
+#   "data": []
+# }
+
+
 ###-------------------- GET supplier BY ID ------------###
 GET {{host}}/supplier/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 728
+# ETag: W/"2d8-hVcdyfS1t6l+X3OCMKoLkUcVQ34"
+# Date: Sun, 04 Aug 2024 16:15:40 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع قيمة واحدة",
+#   "data": {
+#     "id": 1,
+#     "name": "supplier name",
+#     "phone": "+964 750 123 0022",
+#     "createdAt": "2024-08-01T08:45:00.810Z",
+#     "updatedAt": "2024-08-01T08:46:45.590Z",
+#     "product": [
+#       {
+#         "id": 1,
+#         "supplier_id": 1,
+#         "name": "product name",
+#         "barcode": "12342df23",
+#         "quantity": 19,
+#         "price": 12000,
+#         "image": "\\assets\\products\\eaf7d36f-9153-4dca-8035-dc28832df77f-question2.jpg",
+#         "createdAt": "2024-08-01T09:48:14.868Z",
+#         "updatedAt": "2024-08-04T16:11:28.315Z"
+#       },
+#       {
+#         "id": 5,
+#         "supplier_id": 1,
+#         "name": "product name",
+#         "barcode": "12342df23",
+#         "quantity": 10,
+#         "price": 14000,
+#         "image": "\\assets\\products\\ba29e36a-949d-4dc1-96c2-c498234e5fd6-question2.jpg",
+#         "createdAt": "2024-08-04T16:08:17.892Z",
+#         "updatedAt": "2024-08-04T16:08:17.892Z"
+#       }
+#     ]
+#   }
+# }
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:00:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
 
 
 ###-------------------- CREATE supplier ------------###
@@ -26,6 +167,45 @@ Authorization: Bearer {{super_admin_token}}
   "phone": "9647501230022"
 }
 
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 202
+# ETag: W/"ca-D2HoUcxeY6ut9b1w29fDOZPX9Ls"
+# Date: Sun, 04 Aug 2024 16:15:55 GMT
+# Connection: close
+
+# {
+#   "message": "تم الإنشاء بنجاح",
+#   "data": {
+#     "id": 3,
+#     "name": "supplier name",
+#     "phone": "+964 750 123 0022",
+#     "createdAt": "2024-08-04T16:15:55.125Z",
+#     "updatedAt": "2024-08-04T16:15:55.125Z",
+#     "product": []
+#   }
+# }
+
+# failed 
+# HTTP/1.1 400 Bad Request
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 59
+# ETag: W/"3b-dKgrQkjx7Z+FZ2/pBDNnXY3fs80"
+# Date: Sun, 04 Aug 2024 16:17:29 GMT
+# Connection: close
+
+# {
+#   "message": "\"phone\" رقم الهاتف غير صالح"
+# }
+
+
 ###-------------------- UPDATE supplier ------------###
 
 PUT {{host}}/supplier/1
@@ -39,10 +219,132 @@ Authorization: Bearer {{super_admin_token}}
   "phone": "9647501230022"
 }
 
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 713
+# ETag: W/"2c9-Ul52KToEPQuv9AjEkn1qIwNGM60"
+# Date: Sun, 04 Aug 2024 16:17:02 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "name": "supplier name",
+#     "phone": "+964 750 123 0022",
+#     "createdAt": "2024-08-01T08:45:00.810Z",
+#     "updatedAt": "2024-08-04T16:17:02.680Z",
+#     "product": [
+#       {
+#         "id": 1,
+#         "supplier_id": 1,
+#         "name": "product name",
+#         "barcode": "12342df23",
+#         "quantity": 19,
+#         "price": 12000,
+#         "image": "\\assets\\products\\eaf7d36f-9153-4dca-8035-dc28832df77f-question2.jpg",
+#         "createdAt": "2024-08-01T09:48:14.868Z",
+#         "updatedAt": "2024-08-04T16:11:28.315Z"
+#       },
+#       {
+#         "id": 5,
+#         "supplier_id": 1,
+#         "name": "product name",
+#         "barcode": "12342df23",
+#         "quantity": 10,
+#         "price": 14000,
+#         "image": "\\assets\\products\\ba29e36a-949d-4dc1-96c2-c498234e5fd6-question2.jpg",
+#         "createdAt": "2024-08-04T16:08:17.892Z",
+#         "updatedAt": "2024-08-04T16:08:17.892Z"
+#       }
+#     ]
+#   }
+# }
+
+# failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 15:00:56 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
+
+
 ###-------------------- DELETE supplier ------------###
-DELETE {{host}}/supplier/24
+DELETE {{host}}/supplier/1
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
-\
+
+#  failed
+# HTTP/1.1 500 Internal Server Error
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 72
+# ETag: W/"48-WRaSW+RMAsjdeGWIwNjWrMLI/a8"
+# Date: Sun, 04 Aug 2024 15:39:43 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على السجل للتحديث."
+# }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 709
+# ETag: W/"2c5-2lfR9nTxnWLzSU+CFENMmozJgwk"
+# Date: Sun, 04 Aug 2024 16:18:16 GMT
+# Connection: close
+
+# {
+#   "message": "تم الحذف بنجاح",
+#   "data": {
+#     "id": 1,
+#     "name": "supplier name",
+#     "phone": "+964 750 123 0022",
+#     "createdAt": "2024-08-01T08:45:00.810Z",
+#     "updatedAt": "2024-08-04T16:18:16.472Z",
+#     "product": [
+#       {
+#         "id": 1,
+#         "supplier_id": 1,
+#         "name": "product name",
+#         "barcode": "12342df23",
+#         "quantity": 19,
+#         "price": 12000,
+#         "image": "\\assets\\products\\eaf7d36f-9153-4dca-8035-dc28832df77f-question2.jpg",
+#         "createdAt": "2024-08-01T09:48:14.868Z",
+#         "updatedAt": "2024-08-04T16:11:28.315Z"
+#       },
+#       {
+#         "id": 5,
+#         "supplier_id": 1,
+#         "name": "product name",
+#         "barcode": "12342df23",
+#         "quantity": 10,
+#         "price": 14000,
+#         "image": "\\assets\\products\\ba29e36a-949d-4dc1-96c2-c498234e5fd6-question2.jpg",
+#         "createdAt": "2024-08-04T16:08:17.892Z",
+#         "updatedAt": "2024-08-04T16:08:17.892Z"
+#       }
+#     ]
+#   }
+# }

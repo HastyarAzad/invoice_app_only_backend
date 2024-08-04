@@ -1,0 +1,417 @@
+openapi: 3.0.3
+info:
+  title: Suppliers API
+  description: API for managing suppliers and their products
+  version: 1.0.0
+servers:
+  - url: '{{host}}'
+    description: Base URL for the API
+
+paths:
+  /suppliers:
+    get:
+      summary: Get all suppliers
+      description: Retrieve a paginated list of all suppliers.
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: perPage
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of suppliers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'نجاح, تم إرجاع جميع القيم'
+                  page_meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 1
+                      deleted:
+                        type: integer
+                        example: 0
+                      page:
+                        type: integer
+                        example: 1
+                      perPage:
+                        type: integer
+                        example: 20
+                      totalPages:
+                        type: integer
+                        example: 1
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        phone:
+                          type: string
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        product:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              supplier_id:
+                                type: integer
+                              name:
+                                type: string
+                              barcode:
+                                type: string
+                              quantity:
+                                type: integer
+                              price:
+                                type: integer
+                              image:
+                                type: string
+                              createdAt:
+                                type: string
+                                format: date-time
+                              updatedAt:
+                                type: string
+                                format: date-time
+        '404':
+          description: No suppliers found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'لم يتم العثور على سجل'
+                  page_meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 0
+                      deleted:
+                        type: integer
+                        example: 0
+                      page:
+                        type: integer
+                        example: 0
+                      perPage:
+                        type: integer
+                        example: 0
+                      totalPages:
+                        type: integer
+                        example: 0
+                  data:
+                    type: array
+                    items: {}
+  /supplier/{id}:
+    get:
+      summary: Get supplier by ID
+      description: Retrieve a specific supplier by ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the supplier
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Supplier details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'نجاح, تم إرجاع قيمة واحدة'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      product:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            supplier_id:
+                              type: integer
+                            name:
+                              type: string
+                            barcode:
+                              type: string
+                            quantity:
+                              type: integer
+                            price:
+                              type: integer
+                            image:
+                              type: string
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+        '404':
+          description: Supplier not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'لم يتم العثور على سجل'
+  /supplier:
+    post:
+      summary: Create a new supplier
+      description: Add a new supplier to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+              required:
+                - name
+                - phone
+      responses:
+        '200':
+          description: Supplier created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'تم الإنشاء بنجاح'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      product:
+                        type: array
+                        items: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: '"phone" رقم الهاتف غير صالح'
+  /supplier/{id}:
+    put:
+      summary: Update a supplier
+      description: Update the details of an existing supplier.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the supplier
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+              required:
+                - name
+                - phone
+      responses:
+        '200':
+          description: Supplier updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'تم التحديث بنجاح'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      product:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            supplier_id:
+                              type: integer
+                            name:
+                              type: string
+                            barcode:
+                              type: string
+                            quantity:
+                              type: integer
+                            price:
+                              type: integer
+                            image:
+                              type: string
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+        '404':
+          description: Supplier not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'لم يتم العثور على سجل'
+    delete:
+      summary: Delete a supplier
+      description: Remove a supplier from the system.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the supplier
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Supplier deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'تم الحذف بنجاح'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      phone:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                      product:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            supplier_id:
+                              type: integer
+                            name:
+                              type: string
+                            barcode:
+                              type: string
+                            quantity:
+                              type: integer
+                            price:
+                              type: integer
+                            image:
+                              type: string
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'لم يتم العثور على السجل للتحديث.'

@@ -1,10 +1,47 @@
 
 ###-------------------- GET tax BY ID ------------###
-GET {{host}}/tax/1
+GET {{host}}/tax/132
 Content-Type: application/json
 key: {{key}}
 Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 177
+# ETag: W/"b1-qYnkjKi892G8vv/5cDGonv+POSo"
+# Date: Sun, 04 Aug 2024 16:12:00 GMT
+# Connection: close
+
+# {
+#   "message": "نجاح, تم إرجاع قيمة واحدة",
+#   "data": {
+#     "id": 1,
+#     "rate": 5,
+#     "threshold": 50,
+#     "createdAt": "2024-08-02T16:10:40.103Z",
+#     "updatedAt": "2024-08-02T20:01:13.104Z"
+#   }
+# }
+
+#failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 52
+# ETag: W/"34-RQl0IyWw9bzGa4AnEmlNsA9XVow"
+# Date: Sun, 04 Aug 2024 16:12:31 GMT
+# Connection: close
+
+# {
+#   "message": "لم يتم العثور على سجل"
+# }
 
 ###-------------------- PATCH tax ------------###
 PATCH {{host}}/tax/1
@@ -14,5 +51,42 @@ Accept-Language: ar
 Authorization: Bearer {{super_admin_token}}
 
 {
-  "rate": 5
+  "rate": -5
 }
+
+# success
+# HTTP/1.1 200 OK
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 162
+# ETag: W/"a2-TZQ+JFjSF6b6rl/ydZY2ZnOKIOE"
+# Date: Sun, 04 Aug 2024 16:12:45 GMT
+# Connection: close
+
+# {
+#   "message": "تم التحديث بنجاح",
+#   "data": {
+#     "id": 1,
+#     "rate": 5,
+#     "threshold": 50,
+#     "createdAt": "2024-08-02T16:10:40.103Z",
+#     "updatedAt": "2024-08-04T16:12:45.297Z"
+#   }
+# }
+
+#failed
+# HTTP/1.1 404 Not Found
+# X-Powered-By: Express
+# Access-Control-Allow-Origin: *
+# Content-Language: ar
+# Content-Type: application/json; charset=utf-8
+# Content-Length: 63
+# ETag: W/"3f-I9DDSysRIBi1kK0h7ER2Uofs7fM"
+# Date: Sun, 04 Aug 2024 16:14:16 GMT
+# Connection: close
+
+# {
+#   "message": "يجب أن يكون \"rate\" على الأقل 1"
+# }
