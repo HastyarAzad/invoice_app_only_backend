@@ -28,7 +28,8 @@ Prisma https://www.prisma.io/
   DATABASE_URL="mysql://{{username}}:{{password}}@localhost:3306/invoic_app_only_backend?connection_limit=5&pool_timeout=2"
   ```
 5. add JWT_SECRET to the .env file, for JWT token creation
-   ```sh JWT_SECRET="ea55c069f2ee7004a5f3678f12fb52d145cdfa433c8447762ddcf9139b85d50064da05e198725d6827caa7794d13eaf7ad39f68d09fde3ac348e994f7b61ea51"
+   ```sh 
+   JWT_SECRET="ea55c069f2ee7004a5f3678f12fb52d145cdfa433c8447762ddcf9139b85d50064da05e198725d6827caa7794d13eaf7ad39f68d09fde3ac348e994f7b61ea51"
    ```
 6. add JWT_SECRET_REFRESH for validating the refresh tokens
     ```sh
